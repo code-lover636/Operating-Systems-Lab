@@ -1,4 +1,4 @@
-(i) Producer-Consumer problem using semaphores
+(i)Producer-Consumer problem using semaphores
 
 Enter no of producers: 3
 Enter no of consumers: 2
