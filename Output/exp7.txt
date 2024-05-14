@@ -1,0 +1,78 @@
+(i) Producer-Consumer problem using semaphores
+
+Enter no of producers: 3
+Enter no of consumers: 2
+in: 0	out: 0
+Producer: 83
+
+in: 1	out: 0
+Producer: 86
+
+in: 2	out: 0
+Producer: 77
+
+in: 3	out: 0
+Consumer: 83
+
+in: 3	out: 1
+Consumer: 86
+
+in: 3	out: 2
+Producer: 15
+
+in: 4	out: 2
+Consumer: 77
+
+in: 4	out: 3
+Producer: 93
+
+in: 0	out: 3
+Producer: 35
+
+in: 1	out: 3
+Consumer: 15
+
+in: 1	out: 4
+Consumer: 93
+
+in: 1	out: 0
+Producer: 86
+
+in: 2	out: 0
+Producer: 92
+
+in: 3	out: 0
+Producer: 49
+
+in: 4	out: 0
+Consumer: 35
+
+in: 4	out: 1
+Consumer: 86
+
+in: 4	out: 2
+Producer: 21
+
+in: 0	out: 2
+Producer: 62
+
+in: 1	out: 2
+Producer: 27
+
+in: 2	out: 2
+Consumer: 92
+
+in: 2	out: 3
+Consumer: 49
+
+in: 2	out: 4
+Producer: 90
+
+in: 3	out: 4
+Producer: 59
+
+in: 4	out: 4
+Consumer: 21
+
+in: 4	out: 0
+Producer: 63
