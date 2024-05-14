@@ -1,5 +1,6 @@
-echo "Enter a number"
-read num
+# Program to print factorial of a number
+
+read -p "Enter a number: " num
 
 fact=1
 i=1
@@ -10,4 +11,4 @@ do
   i=$((i + 1)) 
 done
 
-echo $fact
+echo Factorial of $num is $fact.

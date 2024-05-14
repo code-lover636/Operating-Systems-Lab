@@ -1,5 +1,6 @@
-echo "Enter a number"
-read num
+# Program to print the sum of digits of a number
+
+read -p "Enter a number: " num
 
 sum=0
 
@@ -9,4 +10,4 @@ do
   num=$((num / 10))    
 done
 
-echo "Sum=$sum"
+echo Sum of digits is $sum.
