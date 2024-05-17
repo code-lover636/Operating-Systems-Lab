@@ -54,6 +54,8 @@ int main(){
     printf("Enter no of consumers: ");
     scanf("%d", &c_num);
 
+    printf("\nBuffer size = 5\n\n");
+
     // Initialize semaphores
     sem_init(&mutex, 0, 1);
     sem_init(&empty, 0, BUFFER_SIZE);
