@@ -1,7 +1,0 @@
-Implement interprocess communication (IPC) using Shared Memory
-
-Writer is writing to shared memory...
-Writer process completed.
-Reader is reading from shared memory...
-Message from shared memory: This is the message in shared memory
-
