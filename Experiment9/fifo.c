@@ -44,6 +44,7 @@ void FIFO(int num_of_frames, int frames[num_of_frames], int num_of_pages, int pa
 
 int main() {
     int num_of_pages, num_of_frames;
+    printf("FIFO Page Replacement Algorithm\n");
     printf("Enter no. of pages: ");
     scanf("%d", &num_of_pages);
     int pages[num_of_pages];
