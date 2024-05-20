@@ -1,9 +1,7 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <string.h>
 
-#define P 5
-#define R 3
-
-void print(int m[][R]){
+void print(int P, int R, int m[][R]){
     for(int i=0;i<P;i++){
 	    for(int j=0;j<R;j++)
 		printf("%d\t",m[i][j]);
@@ -11,32 +9,38 @@ void print(int m[][R]){
     }
 }
 
-
-int isSafe(int available[], int max[][R], int allocate[][R]) {
-    int need[P][R], work[R], finish[P] = {0}, count = 0;
-    
+void calcNeed(int P, int R, int max[P][R], int need[P][R], int allocate[P][R]){
     for (int i = 0; i < P; i++)
         for (int j = 0; j < R; j++)
             need[i][j] = max[i][j] - allocate[i][j];
     
     printf("Resource need\n");
-    print(need);
+    print(P, R, need);
+}
+
+void bankerAlgorithm(int P, int R, int available[], int max[][R], int allocate[][R]) {
+    int need[P][R], work[R], finish[P], count = 0, found, flag;
+    memset(finish, 0, sizeof(finish));
+    
+    calcNeed(P, R, max, need, allocate);
     
     for (int i = 0; i < R; i++)
         work[i] = available[i];
         
 
     while (count < P) {
-        int found = 0;
+        found = 0;
         for (int i = 0; i < P; i++) {
-            if (finish[i] == 0){
-                int j,flag=1;
-                for (j = 0; j < R; j++)
+            if (!finish[i]){
+                flag = 1;
+
+                for (int j = 0; j < R; j++)
                     if (need[i][j] > work[j]){ 
-                        flag=0;
+                        flag = 0;
                         break;
                     }
-                if (flag == 1) {                   
+
+                if (flag) {                   
                     printf("Available Resources");
                     for (int k = 0; k < R; k++)
                         printf("-%d",work[k]);
@@ -58,44 +62,36 @@ int isSafe(int available[], int max[][R], int allocate[][R]) {
             }
         }
         if (found == 0) 
-            return 0;
+            printf("Unsafe state\n");
        
     }	
-    return 1;
-}
-
-void bankerAlgorithm(int available[], int max[][R], int allocate[][R]) {
-    if (isSafe(available, max, allocate))
-        printf("Safe state\n");
-    else
-        printf("Unsafe state\n");
+    printf("Safe state\n");
 }
 
 
 int main() {
-    int available[] = {3, 3, 2};
+    int P, R;
+    printf("Enter no. of processes: ");
+    scanf("%d", &P);
+    printf("Enter no. of resources: ");
+    scanf("%d", &R);
 
+    int available[R], max[P][R], allocate[P][R];
 
-    int max[P][R] = {
-        {7, 5, 3},
-        {3, 2, 2},
-        {9, 0, 2},
-        {2, 2, 2},
-        {4, 3, 3}
-    };
+    printf("Enter available vector: ");
+    for(int i=0; i<R; i++)
+        scanf("%d", &available[i]);
 
-    int allocate[P][R] = {
-        {0, 1, 0},
-        {2, 0, 0},
-        {3, 0, 2},
-        {2, 1, 1},
-        {0, 0, 2}
-    };
+    printf("Enter max matrix:\n");
+    for(int i=0; i<P; i++)
+        for (int j=0; j<R; j++)
+            scanf("%d", &max[i][j]);
 
-    printf("Max Requirement\n");
-    print(max);
-    printf("Resource Allocation\n");
-    print(allocate);
-    bankerAlgorithm(available, max, allocate);
+    printf("Enter allocate matrix:\n");
+    for(int i=0; i<P; i++)
+        for (int j=0; j<R; j++)
+            scanf("%d", &allocate[i][j]);
+
+    bankerAlgorithm(P, R, available, max, allocate);
 
 }
