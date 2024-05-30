@@ -11,12 +11,8 @@ int main(){
 		exit(EXIT_FAILURE);
 	}
 	else if(pid==0){
-		printf("child process created successfully.\n");
+		printf("Child process created successfully.\n");
 		char *args[] = {"./hello", NULL};
 		execvp(args[0], args);
-		printf("Child process id: %d\nParent process id: %d\n", getpid(), getppid());
-	}
-	else{
-		printf("parent process id: %d\n", getpid());
 	}
 }

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int main(){
-	printf("\n File: hello.c\nChild process executing....");
+	printf("\nFile: hello.c\nChild process exiting...\n");
 	exit(1);
 
 }

@@ -1,56 +1,56 @@
 #include <stdio.h>
 #include <string.h>
 
-void worstFit(int block[], int m, int process[], int n) {
-    int allocation[n];
+void calcWorstFit(int no_of_blocks, int blocks[no_of_blocks], int no_of_process, int processes[no_of_process]) {
+    int allocation[no_of_process], worst;
     memset(allocation, -1, sizeof(allocation));
 
-    for (int i = 0; i < n; i++) {
-        int wstIdx = -1;
-        for (int j = 0; j < m; j++) {
-            if (block[j] >= process[i]) {
-                if (wstIdx == -1 || block[wstIdx] < block[j])
-                    wstIdx = j;
+    for (int i = 0; i < no_of_process; i++) {
+        worst = -1;
+        for (int j = 0; j < no_of_blocks; j++) {
+            if (blocks[j] >= processes[i]) {
+                if (worst == -1 || blocks[worst] < blocks[j])
+                    worst = j;
             }
         }
-        if (wstIdx != -1) {
-            allocation[i] = wstIdx;
-            block[wstIdx] -= process[i];
+        if (worst != -1) {
+            allocation[i] = worst;
+            blocks[worst] -= processes[i];
         }
     }
 
     printf("\nProcess No.\tProcess Size\tBlock no.\n");
-    for (int i = 0; i < n; i++) {
-        printf(" %d\t\t%d\t\t", i + 1, process[i]);
+    for (int i = 0; i < no_of_process; i++) {
+        printf(" %d\t\t%d\t\t", i + 1, processes[i]);
         if (allocation[i] != -1)
             printf("%d", allocation[i] + 1);
         else
             printf("Not Allocated");
         printf("\n");
     }
-    printf("Free Blocks\n");
-    for (int i = 0; i < m; i++) printf("%d->",block[i]);
+    printf("\nFree Blocks: ");
+    for (int i = 0; i < no_of_blocks; i++) 
+        printf("%d->",blocks[i]);
     printf("\n");
 }
 
 int main() {
-    int m, n;
+    int no_of_blocks, no_of_process;
     printf("Enter no of blocks: ");
-    scanf("%d", &m);
+    scanf("%d", &no_of_blocks);
     printf("Enter no of processes: ");
-    scanf("%d", &n);
+    scanf("%d", &no_of_process);
     
-    int process[n], block[m];
+    int processes[no_of_process], blocks[no_of_blocks];
     
-    for(int i=0; i<m; i++){
-    	printf("Enter block size: ");
-    	scanf("%d", &block[i]);
+    for(int i=0; i<no_of_blocks; i++){
+    	printf("Enter block%d size: ", i+1);
+    	scanf("%d", &blocks[i]);
     }
     
-    for(int i=0; i<n; i++){
-    	printf("Enter process size: ");
-    	scanf("%d", &process[i]);
+    for(int i=0; i<no_of_process; i++){
+    	printf("Enter process%d size: ", i+1);
+    	scanf("%d", &processes[i]);
     }
-    worstFit(block, m, process, n);
-    return 0;
+    calcWorstFit(no_of_blocks, blocks, no_of_process, processes);
 }
