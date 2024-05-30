@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int printTable(int n, int id[n], int bt[n], int at[n], int tat[n], int wt[n]){
+int printTable(int n, int id[n], int bt[n], int at[n], int tat[n], int wt[n], int pt[n]){
     int avgT=0, avgW=0;
-    printf("Process ID:\tArrival Time:\tBurst Time:\tTurn Around Time:\tWait Time:\n");
+    printf("Process ID:\tArrival Time:\tBurst Time:\tPriority:\tTurn Around Time:\tWait Time:\n");
     for(int i=0; i<n; i++) {
-        printf("%d\t\t%d\t\t%d\t\t%d\t\t\t%d\n", id[i], at[i], bt[i], tat[i], wt[i]);
+        printf("%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t\t%d\n", id[i], at[i], bt[i], pt[i], tat[i], wt[i]);
         avgT += tat[i];
         avgW += wt[i];
     }
@@ -13,28 +13,20 @@ int printTable(int n, int id[n], int bt[n], int at[n], int tat[n], int wt[n]){
 }
 
 
-void sjf(int n, int bt[n], int at[n], int tat[n], int wt[n], int id[n]){
-	int completed=0, time=0, flag=0, completedProcesses[n];
-
-    for(int i=0; i<n; i++) completedProcesses[i] = bt[i];
+void prioritySchedule(int n, int bt[n], int at[n], int tat[n], int wt[n]){
+	int completed=0, time=0;
 
 	while(completed<n){
 		for(int i=0; i<n; i++){
-			if(at[i]<=time && completedProcesses[i] != -1){
+			if(at[i]<=time){
 				time += bt[i];
-                // printf(">>completion time: %d, %d\n", time, id[i]);
 				tat[i] = time - at[i];
 				wt[i] = tat[i] - bt[i];
-                completedProcesses[i] = -1;
 				completed++;
-                flag=1;
-                break;
 			}
+			else
+				time++;
 		}
-        if(!flag){
-            time++;
-            flag=0;
-        }
 	}
 
 }
@@ -43,7 +35,7 @@ int main() {
     int n, temp;
     printf("Enter number of processes: ");
     scanf("%d", &n);
-    int id[n], at[n], bt[n], wt[n], tat[n];
+    int id[n], at[n], bt[n], wt[n], tat[n], pt[n];
 
     printf("\n");
     for (int i = 0; i < n; i++) {
@@ -51,13 +43,15 @@ int main() {
 		scanf("%d", &at[i]);
 		printf("Enter burst time of process %d: ", i+1);
 		scanf("%d", &bt[i]);
+		printf("Enter priority of process %d: ", i+1);
+		scanf("%d", &pt[i]);
         id[i] = i;
     }
 
     // Sort processes
     for (int i = 0; i < n-1; i++) {
         for (int j = 0; j < n-i-1; j++) {
-            if (bt[j]>bt[j+1]) {
+            if (at[j]>at[j+1] || (at[j]==at[j+1] && pt[j]>pt[j+1])) {
                 temp = at[j];
                 at[j] = at[j+1];
                 at[j+1] = temp;
@@ -66,6 +60,10 @@ int main() {
                 bt[j] = bt[j+1];
                 bt[j+1] = temp;
 
+                temp = pt[j];
+                pt[j] = pt[j+1];
+                pt[j+1] = temp;
+
                 temp = id[j];
                 id[j] = id[j+1];
                 id[j+1] = temp;
@@ -73,6 +71,6 @@ int main() {
         }
     }
 
-    sjf(n, bt, at, tat, wt, id);
-    printTable(n, id, bt, at, tat, wt);
+    prioritySchedule(n, bt, at, tat, wt);
+    printTable(n, id, bt, at, tat, wt, pt);
 }
