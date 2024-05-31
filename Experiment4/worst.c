@@ -28,7 +28,7 @@ void calcWorstFit(int no_of_blocks, int blocks[no_of_blocks], int no_of_process,
             printf("Not Allocated");
         printf("\n");
     }
-    printf("\nFree Blocks: ");
+    printf("\nFragments: ");
     for (int i = 0; i < no_of_blocks; i++) 
         printf("%d->",blocks[i]);
     printf("\n");
