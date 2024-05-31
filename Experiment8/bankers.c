@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 void print(int P, int R, int m[P][R]){
@@ -16,16 +17,13 @@ void calcNeed(int P, int R, int max[P][R], int need[P][R], int allocate[P][R]){
     
     printf("Need Matrix: \n");
     print(P, R, need);
+    printf("\n");
 }
 
 void bankersAlgorithm(int P, int R, int available[R], int max[P][R], int allocate[P][R], int need[P][R]) {
     int work[R], finish[P], count = 0, found, flag;
-    memset(finish, 0, sizeof(finish));
-    
-    calcNeed(P, R, max, need, allocate);
-    
-    for (int i = 0; i < R; i++) work[i] = available[i];
-        
+    memset(finish, 0, sizeof(finish));    
+    for (int i = 0; i < R; i++) work[i] = available[i];    
 
     while (count < P) {
         found = 0;
@@ -40,20 +38,20 @@ void bankersAlgorithm(int P, int R, int available[R], int max[P][R], int allocat
                     }
 
                 if (flag) {                   
-                    printf("Available Resources");
-                    for (int k = 0; k < R; k++)
-                        printf("-%d",work[k]);
+                    // printf("Available Resources");
+                    // for (int k = 0; k < R; k++)
+                    //     printf("-%d",work[k]);
                         
-                    printf("\nprocess-p%d can be allocated resources",i);
-                    for (int k = 0; k < R; k++)
-                        printf("-%d",need[i][k]);
+                    // printf("\nprocess-p%d can be allocated resources",i);
+                    // for (int k = 0; k < R; k++)
+                    //     printf("-%d",need[i][k]);
+
+                    printf("P%d ", i);
                         
                        
                     
                     for (int k = 0; k < R; k++) 
                         work[k] += allocate[i][k];
-                        
-                    printf("\n");
                     finish[i] = 1;
                     found = 1;
                     count++;
@@ -61,19 +59,19 @@ void bankersAlgorithm(int P, int R, int available[R], int max[P][R], int allocat
             }
         }
         if (found == 0){
-            printf("Unsafe state\n");
+            printf("\nUnsafe state\n");
             return;
         }
        
     }	
-    printf("Safe state\n");
+    printf("\nSafe state\n");
 }
 
-int compare(int P, int R, int matrix[P][R], int request[R]){
-    for(int i=0; i<P; i++)
-        for(int j=0; j<R; j++)
-            if(matrix[i][j] < request[j])
-                return 0;
+
+int compare(int R, int matrix[R], int request[R]){
+    for(int j=0; j<R; j++)
+        if(matrix[j] < request[j])
+            return 0;
     return 1;
 }
 
@@ -86,6 +84,24 @@ int request(int P, int R, int available[R], int max[P][R], int allocate[P][R], i
     printf("Enter request vector: ");
     for(int i=0; i<R; i++)
         scanf("%d", &request[i]);
+
+    //Compare with need matrix
+    if( !compare(R, need[id], request) ){
+        printf("Invalid request vector. Process has exceeded its maximum claim.\n");
+        exit(0);
+    }
+
+    //Compare with available vector
+    if( compare(R, available, request) ){     
+        //Needi = Needi - request
+        for(int i=0; i<R; i++) need[id][i] -= request[i];
+        //allocatei = allocatei + request
+        for(int i=0; i<R; i++) allocate[id][i] += request[i];
+        //available = available - request
+        for(int i=0; i<R; i++) available[i] -= request[i];
+        bankersAlgorithm(P, R, available, max, allocate, need);
+    }
+
 }
 
 
@@ -112,6 +128,7 @@ int main() {
         for (int j=0; j<R; j++)
             scanf("%d", &allocate[i][j]);
 
+    calcNeed(P, R, max, need, allocate);
     bankersAlgorithm(P, R, available, max, allocate, need);
     request(P, R, available, max, allocate, need);
 
