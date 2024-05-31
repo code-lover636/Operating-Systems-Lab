@@ -14,7 +14,7 @@ int printTable(int n, int id[n], int bt[n], int at[n], int tat[n], int wt[n], in
 
 
 void prioritySchedule(int n, int bt[n], int at[n], int tat[n], int wt[n]){
-	int completed=0, time=0;
+	int completed=0, time=0, flag=0;
 
 	while(completed<n){
 		for(int i=0; i<n; i++){
@@ -23,10 +23,13 @@ void prioritySchedule(int n, int bt[n], int at[n], int tat[n], int wt[n]){
 				tat[i] = time - at[i];
 				wt[i] = tat[i] - bt[i];
 				completed++;
+                flag = 1;
 			}
-			else
-				time++;
 		}
+        if(!flag){
+            time++;
+            flag = 0;
+        }
 	}
 
 }
