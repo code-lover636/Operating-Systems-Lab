@@ -14,9 +14,10 @@ int printTable(int n, int bt[n], int at[n], int tat[n], int wt[n], int id[n]){
 
 
 int fcfs(int n, int bt[n], int at[n], int id[n]){
-	int completed=0, time=0, tat[n], wt[n], flag=0;
+	int completed=0, time=0, tat[n], wt[n], flag;
 
 	while(completed<n){
+		flag = 0;
 		for(int i=0; i<n; i++){
 			if(at[i]<=time){
 				time += bt[i];
@@ -31,7 +32,6 @@ int fcfs(int n, int bt[n], int at[n], int id[n]){
 		}
 		if(!flag){
 			time++;
-			flag = 0;
 		}
 	}
 	printTable(n, bt, at, tat, wt, id);

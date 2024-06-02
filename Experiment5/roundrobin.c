@@ -13,16 +13,19 @@ int printTable(int n, int bt[n], int at[n], int tat[n], int wt[n]){
 }
 
 int roundRobin(int n, int bt[n], int at[n], int quanta){
-    int remainingTime[n], tat[n], wt[n], completed = 0, time=0;
+    int remainingTime[n], tat[n], wt[n], completed = 0, time=0, flag;
     for(int i=0; i<n; i++) remainingTime[i] = bt[i];
 
     while(completed < n){
+        flag = 0;
         for(int i=0; i<n; i++){
             if(remainingTime[i] != 0  && at[i] <= time){
+                flag = 1;
                 if(remainingTime[i] <= quanta){
                     time += remainingTime[i];
                     remainingTime[i] = 0;
                     completed++;
+                    printf(">>Completion time of P%d=%d\n", i, time);
                     tat[i] = time - at[i];
                     wt[i] = tat[i] - bt[i];
                 }
@@ -30,8 +33,10 @@ int roundRobin(int n, int bt[n], int at[n], int quanta){
                     remainingTime[i] -= quanta;
                     time += quanta;
                 }
-
             }
+        }
+        if(!flag){
+            time += quanta;
         }
     }
 

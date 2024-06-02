@@ -14,11 +14,12 @@ int printTable(int n, int id[n], int bt[n], int at[n], int tat[n], int wt[n]){
 
 
 void sjf(int n, int bt[n], int at[n], int tat[n], int wt[n], int id[n]){
-	int completed=0, time=0, flag=0, completedProcesses[n];
+	int completed=0, time=0, flag, completedProcesses[n];
 
     for(int i=0; i<n; i++) completedProcesses[i] = bt[i];
 
 	while(completed<n){
+        flag = 0;
 		for(int i=0; i<n; i++){
 			if(at[i]<=time && completedProcesses[i] != -1){
 				time += bt[i];
@@ -33,7 +34,6 @@ void sjf(int n, int bt[n], int at[n], int tat[n], int wt[n], int id[n]){
 		}
         if(!flag){
             time++;
-            flag=0;
         }
 	}
 
