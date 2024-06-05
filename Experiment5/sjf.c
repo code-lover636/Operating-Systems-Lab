@@ -16,17 +16,17 @@ int printTable(int n, int id[n], int bt[n], int at[n], int tat[n], int wt[n]){
 void sjf(int n, int bt[n], int at[n], int tat[n], int wt[n], int id[n]){
 	int completed=0, time=0, flag, completedProcesses[n];
 
-    for(int i=0; i<n; i++) completedProcesses[i] = bt[i];
+    memset(completedProcesses, 0, sizeof(completedProcesses));
 
 	while(completed<n){
         flag = 0;
 		for(int i=0; i<n; i++){
-			if(at[i]<=time && completedProcesses[i] != -1){
+			if(at[i]<=time && completedProcesses[i] != 1){
 				time += bt[i];
                 // printf(">>completion time: %d, %d\n", time, id[i]);
 				tat[i] = time - at[i];
 				wt[i] = tat[i] - bt[i];
-                completedProcesses[i] = -1;
+                completedProcesses[i] = 1;
 				completed++;
                 flag=1;
                 break;
