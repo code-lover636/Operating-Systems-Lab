@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-int rear = -1;
 
 void display(int num_of_frames, int frames[num_of_frames]) {
     for (int i = 0; i < num_of_frames; i++) {
@@ -16,7 +15,7 @@ void display(int num_of_frames, int frames[num_of_frames]) {
 
 
 void FIFO(int num_of_frames, int frames[num_of_frames], int num_of_pages, int pages[num_of_pages]) {
-    int page_faults = 0;
+    int page_faults = 0, rear=0;
 
     for (int i = 0; i < num_of_pages; i++) {
         int found = 0;
@@ -32,8 +31,8 @@ void FIFO(int num_of_frames, int frames[num_of_frames], int num_of_pages, int pa
         if (!found) {
             printf("\nMISS: page %d is not present\n", pages[i]);
             page_faults++;
-            rear = (rear + 1) % num_of_frames;
             frames[rear] = pages[i];
+            rear = (rear + 1) % num_of_frames;
         }
 
         display(num_of_frames, frames);

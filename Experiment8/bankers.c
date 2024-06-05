@@ -38,18 +38,8 @@ void bankersAlgorithm(int P, int R, int available[R], int max[P][R], int allocat
                     }
 
                 if (flag) {                   
-                    // printf("Available Resources");
-                    // for (int k = 0; k < R; k++)
-                    //     printf("-%d",work[k]);
-                        
-                    // printf("\nprocess-p%d can be allocated resources",i);
-                    // for (int k = 0; k < R; k++)
-                    //     printf("-%d",need[i][k]);
-
                     printf("P%d ", i);
                         
-                       
-                    
                     for (int k = 0; k < R; k++) 
                         work[k] += allocate[i][k];
                     finish[i] = 1;

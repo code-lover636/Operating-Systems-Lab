@@ -16,8 +16,7 @@ void display(int num_of_frames, int frames[num_of_frames]) {
 
 
 int findFrame(int counter[], int num_of_frames) {
-    int min = counter[0];
-    int target_frame = 0;
+    int min = counter[0], target_frame = 0;
 
     for (int i = 1; i < num_of_frames; i++) {
         if (counter[i] < min) {

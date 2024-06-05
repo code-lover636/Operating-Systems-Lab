@@ -10,10 +10,13 @@ int cScanShedule(int no_of_requests, int requests[no_of_requests], int current){
     for(int i=start_index; i<no_of_requests; i++){
         seek_time += abs(requests[i] - current);
         current = requests[i];
+        printf(">>%d\n", current);
     }
+    current = 0;
     for(int i=0; i<start_index; i++){
         seek_time += abs(requests[i] - current);
         current = requests[i];
+        printf("::%d\n", current);
     }
 
     return seek_time;

@@ -14,7 +14,7 @@
 int main() {
 
     // Writer process
-    key_t key = ftok("file", 6);
+    key_t key = ftok("file", 0);
     int shmid = shmget(key, SIZE, IPC_CREAT | 0666);
 
     if (shmid == -1) {

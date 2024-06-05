@@ -14,28 +14,42 @@ int printTable(int n, int bt[n], int at[n], int tat[n], int wt[n], int id[n]){
 
 
 int fcfs(int n, int bt[n], int at[n], int id[n]){
-	int completed=0, time=0, tat[n], wt[n], flag;
+	int time=0, tat[n], wt[n];
 
-	while(completed<n){
-		flag = 0;
-		for(int i=0; i<n; i++){
-			if(at[i]<=time){
-				time += bt[i];
-				tat[i] = time - at[i];
-				wt[i] = tat[i] - bt[i];
-				completed++;
-				flag = 1;
-			}
-			else{
-				time++;
-			}
+
+	for(int i=0; i<n; i++){
+		if(at[i]>time){
+			time += at[i];
 		}
-		if(!flag){
-			time++;
+		if(at[i]<=time){
+			time += bt[i];
+			tat[i] = time - at[i];
+			wt[i] = tat[i] - bt[i];
 		}
 	}
 	printTable(n, bt, at, tat, wt, id);
 }
+// int fcfs(int n, int bt[n], int at[n], int id[n]){
+// 	int completed=0, time=0, tat[n], wt[n], flag, completedProcesses[n];
+// 	memset(completedProcesses, 0, sizeof(completedProcesses));
+// 	while(completed<n){
+// 		flag = 0;
+// 		for(int i=0; i<n; i++){
+// 			if(at[i]<=time && completedProcesses[i] != 1){
+// 				time += bt[i];
+// 				tat[i] = time - at[i];
+// 				wt[i] = tat[i] - bt[i];
+// 				completedProcesses[i] = 1;
+// 				completed++;
+// 				flag = 1;
+// 			}
+// 		}
+// 		if(!flag){
+// 			time++;
+// 		}
+// 	}
+// 	printTable(n, bt, at, tat, wt, id);
+// }
 
 int main(){
 	int n, temp;

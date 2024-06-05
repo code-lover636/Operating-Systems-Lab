@@ -63,10 +63,10 @@ int main(){
 
     // Create threads
     for(int i=0; i<p_num; i++)
-        pthread_create(&producerTh, NULL, producer, "Producer");
+        pthread_create(&producerTh, NULL, producer, NULL);
 
     for(int i=0; i<c_num; i++)
-        pthread_create(&consumerTh, NULL, consumer, "Consumer");
+        pthread_create(&consumerTh, NULL, consumer, NULL);
 
     // Wait for thread to finish
     for(int i=0; i<p_num; i++)
