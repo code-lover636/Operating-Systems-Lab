@@ -20,7 +20,7 @@ int main() {
     if (stats.st_mode & S_IWUSR) printf("write ");
     if (stats.st_mode & S_IXUSR) printf("execute");
 
-    printf("\neFile size: %ld bytes\n", stats.st_size);
+    printf("\nFile size: %ld bytes\n", stats.st_size);
 
     struct tm dt = *(gmtime(&stats.st_ctime));
     printf("Created on: %d-%d-%d %d:%d:%d\n",

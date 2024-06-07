@@ -45,7 +45,7 @@ int main() {
     scanf("%d", &n);
     int id[n], at[n], bt[n], wt[n], tat[n], pt[n];
 
-    printf(">\n");
+    printf("Enter (arrival time, burst time, priority) for %d process\n", n);
     for (int i = 0; i < n; i++) {
         // printf("Enter arrival time of process %d: ", i+1);
 		scanf("%d", &at[i]);

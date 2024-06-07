@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 int printTable(int n, int id[n], int bt[n], int at[n], int tat[n], int wt[n]){
     int avgT=0, avgW=0;
