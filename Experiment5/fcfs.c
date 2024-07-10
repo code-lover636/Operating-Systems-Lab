@@ -17,16 +17,22 @@ int fcfs(int n, int bt[n], int at[n], int id[n]){
 	int time=0, tat[n], wt[n];
 
 
+	printf("0 ");
+
 	for(int i=0; i<n; i++){
 		if(at[i]>time){
-			time += at[i];
+			time += at[i]-time;
+			printf("__ %d ", time);
+
 		}
 		if(at[i]<=time){
 			time += bt[i];
 			tat[i] = time - at[i];
 			wt[i] = tat[i] - bt[i];
+			printf("P%d %d ", i, time);
 		}
 	}
+	printf("\n");
 	printTable(n, bt, at, tat, wt, id);
 }
 

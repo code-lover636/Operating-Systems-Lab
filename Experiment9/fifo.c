@@ -56,6 +56,6 @@ int main() {
     scanf("%d", &num_of_frames);
     int frames[num_of_frames];
 
-    memset(frames, -1, sizeof(int)*num_of_frames);
+    memset(frames, -1, sizeof(frames));
     FIFO(num_of_frames, frames, num_of_pages, pages);
 }
